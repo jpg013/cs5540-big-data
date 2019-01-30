@@ -4,39 +4,6 @@ from config import AppConfig
 import tweet
 import os
 
-#auth = tweepy.OAuthHandler(AppConfig.get("TWITTER_API_KEY"), AppConfig.get("TWITTER_API_SECRET"))
-#auth.set_access_token(AppConfig.get("TWITTER_ACCESS_TOKEN"), AppConfig.get("TWITTER_ACCESS_SECRET"))
-
-#api = tweepy.API(auth)
-
-#override tweepy.StreamListener to add logic to on_status
-"""
-class MyStreamListener(tweepy.StreamListener):
-    def on_status(self, status):
-        hashtags = status.entities["hashtags"]
-        urls = status.entities["urls"]
-
-        if len(hashtags) > 0:
-            s = " ".join(x["text"] for x in hashtags)
-            print(s)
-"""
-            # hashtag_file.write(s + "\n")
-
-            # str(x) for x in list]
-            # s = " ".join(hashtags)
-            # print(s)
-            # hashtag_file.write("test")
-            # s = " ".join(hashtags)
-            # print(s)
-            #hashtag_file.write("test")
-
-        #if len(urls) > 0:
-         #   print(urls)
-            # s = " ".join(urls)
-            # print(s)
-            #hashtag_file.write("test")
-
-
 class TwitterAPI():
     """Twitter API is a wrapper calss around the tweepy api."""
 
@@ -64,12 +31,16 @@ class TwitterStreamAPI(TwitterAPI):
             auth = self.api.auth, 
             listener=HashtagUrlStreamListener()
         )
-    
+
     def add_filters(self, *filters):
         self.filters = self.filters + list(filters)
 
     def start(self):
-        self.stream.filter(track=self.filters)
+        self.stream.filter(track=self.filters, is_async=True)
+
+    def stop(self):
+        print("calling disconnect")
+        self.stream.disconnect()
 
 class HashtagUrlStreamListener(tweepy.StreamListener):
     """StreamListener class that parses out hashtags/urls from 
@@ -95,4 +66,10 @@ class HashtagUrlStreamListener(tweepy.StreamListener):
 
         self.hashtag_file.write(hashtags+"\n") if hashtags is not None else None
         self.url_file.write(urls+"\n") if urls is not None else None
+        
+    def on_error(self, status_code):
+        if status_code == 420:
+            print("we are receiving a 420 error")
+            #returning False in on_data disconnects the stream
+            return False
             
