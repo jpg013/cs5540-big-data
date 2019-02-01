@@ -4,5 +4,12 @@
 # env config
 .env
 
-# Data Files
-data/
+# input/output files
+input
+output
+
+# logs
+logs
+
+# Pycache
+__pycache__

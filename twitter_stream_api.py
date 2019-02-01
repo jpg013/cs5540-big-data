@@ -3,6 +3,8 @@ from file_handle import FileHandle, FileModes
 from config import AppConfig
 import tweet
 import os
+import math
+test = math.inf
 
 class TwitterAPI():
     """Twitter API is a wrapper calss around the tweepy api."""
@@ -23,17 +25,19 @@ class TwitterAPI():
 class TwitterStreamAPI(TwitterAPI):
     filters=[]
     
-    def __init__(self):
+    def __init__(self, limit=math.inf):
         # Call super init
         super().__init__()
 
         self.stream = tweepy.Stream(
             auth = self.api.auth, 
-            listener=HashtagUrlStreamListener()
+            listener=StatusStreamListener(limit)
         )
 
     def add_filters(self, *filters):
         self.filters = self.filters + list(filters)
+        
+        return self
 
     def start(self):
         self.stream.filter(track=self.filters, is_async=True)
@@ -42,11 +46,14 @@ class TwitterStreamAPI(TwitterAPI):
         print("calling disconnect")
         self.stream.disconnect()
 
-class HashtagUrlStreamListener(tweepy.StreamListener):
-    """StreamListener class that parses out hashtags/urls from 
-    each status and stores them in a file"""
+class StatusStreamListener(tweepy.StreamListener):
+    """StatusStreamListener class that parses twitter stream statuses"""
     
-    def __init__(self, dirname=os.path.join(os.path.dirname(__file__), 'data')):
+    def __init__(
+        self, 
+        limit=math.inf,
+        dirname=os.path.join(os.path.dirname(__file__), "input")
+    ):
         # Call super init
         super().__init__()
         
@@ -59,13 +66,22 @@ class HashtagUrlStreamListener(tweepy.StreamListener):
             file_path=os.path.join(dirname, 'urls.txt'),
             mode=FileModes.APPEND
         )
+
+        self.limit = limit
+        self.count = 0
         
     def on_status(self, status):    
+        """Called whenever there is a new status from twitter stream"""
         hashtags = tweet.parse_status_hashtags(status)
         urls = tweet.parse_status_urls(status)
 
         self.hashtag_file.write(hashtags+"\n") if hashtags is not None else None
         self.url_file.write(urls+"\n") if urls is not None else None
+
+        self.count += 1
+        # If we have exceeded the limit then return False to stop the stream
+        if self.count >= self.limit:
+            return False
         
     def on_error(self, status_code):
         if status_code == 420:

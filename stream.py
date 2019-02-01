@@ -5,8 +5,6 @@ import time
 # Init AppConfig
 AppConfig.init()
 
-stream = TwitterStreamAPI()
+stream = TwitterStreamAPI(limit=100)
 
-stream.add_filters("super bowl")
-
-stream.start()
+stream.add_filters("trump").start()
