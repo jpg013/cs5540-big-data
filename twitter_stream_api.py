@@ -1,7 +1,6 @@
 import tweepy
 from file_handle import FileHandle, FileModes
 from config import AppConfig
-import tweet
 import os
 import math
 test = math.inf
@@ -22,7 +21,8 @@ class TwitterAPI():
 
         self.api = tweepy.API(auth)
 
-class TwitterStreamAPI(TwitterAPI):
+class TwitterStream(TwitterAPI, tweepy.StreamListener):
+    """TwitterStream inherits from TwitterAPI and tweepy StreamListenr"""
     filters=[]
     
     def __init__(self, limit=math.inf):
@@ -31,20 +31,68 @@ class TwitterStreamAPI(TwitterAPI):
 
         self.stream = tweepy.Stream(
             auth = self.api.auth, 
-            listener=StatusStreamListener(limit)
+            listener=self
         )
 
-    def add_filters(self, *filters):
-        self.filters = self.filters + list(filters)
+        self.is_streaming = False
+        self.listeners = []
+        self.chunks = 0
+        self.limit = limit
+        self.filters = {
+            "locations": [],
+            "track": []
+        }
+
+    def on_status(self, chunk):
+        self.chunks += 1
+
+        # Publish the status to all listeners
+        self.publish_status(chunk)
         
-        return self
+        # If we have exceeded the limit then return False to stop the stream
+        if self.chunks >= self.limit:
+            return False
+
+    def add_location_filter(self, coords):
+        self.filters["locations"] = self.filters["locations"] + coords
+        
+    def add_track_filter(self, term):
+        self.filters["track"].append(term)
+
+    def publish_status(self, status):
+        for func in self.listeners:
+            func(status)
+
+    def add_listener(self, func):
+        """ Adds a callback to the listeners array if it does not already exist"""
+        if func in self.listeners or not callable(func):
+            return
+        
+        self.listeners.append(func)
 
     def start(self):
-        self.stream.filter(track=self.filters, is_async=True)
+        if self.is_streaming is True:
+            return
+        print(self.filters)
+        self.is_streaming = True
+        self.stream.filter(
+            locations=self.filters["locations"], 
+            track=self.filters["track"],
+            is_async=True
+        )
 
     def stop(self):
-        print("calling disconnect")
+        if not self.is_streaming:
+            return
+        
         self.stream.disconnect()
+        self.is_streaming = False
+
+    def on_error(self, status_code):
+        if status_code == 420:
+            print("we are receiving a 420 error")
+            #returning False in on_data disconnects the stream
+            return False
 
 class StatusStreamListener(tweepy.StreamListener):
     """StatusStreamListener class that parses twitter stream statuses"""
@@ -52,40 +100,26 @@ class StatusStreamListener(tweepy.StreamListener):
     def __init__(
         self, 
         limit=math.inf,
-        dirname=os.path.join(os.path.dirname(__file__), "input")
+        # dirname=os.path.join(os.path.dirname(__file__), "input"),
+        # on_status
     ):
         # Call super init
         super().__init__()
         
+        """
         self.hashtag_file = FileHandle(
             file_path=os.path.join(dirname, 'hashtags.txt'),
             mode=FileModes.APPEND
         )
 
-        self.url_file = FileHandle(
-            file_path=os.path.join(dirname, 'urls.txt'),
-            mode=FileModes.APPEND
-        )
-
-        self.limit = limit
-        self.count = 0
-        
-    def on_status(self, status):    
-        """Called whenever there is a new status from twitter stream"""
         hashtags = tweet.parse_status_hashtags(status)
         urls = tweet.parse_status_urls(status)
 
         self.hashtag_file.write(hashtags+"\n") if hashtags is not None else None
         self.url_file.write(urls+"\n") if urls is not None else None
 
-        self.count += 1
-        # If we have exceeded the limit then return False to stop the stream
-        if self.count >= self.limit:
-            return False
-        
-    def on_error(self, status_code):
-        if status_code == 420:
-            print("we are receiving a 420 error")
-            #returning False in on_data disconnects the stream
-            return False
-            
+        self.url_file = FileHandle(
+            file_path=os.path.join(dirname, 'urls.txt'),
+            mode=FileModes.APPEND
+        )
+        """

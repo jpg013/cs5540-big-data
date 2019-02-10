@@ -6,7 +6,7 @@ import os
 class AppConfig:
   __config = {
     "TWITTER_API_KEY": "",
-    "TWITTER_API_SECRET": "",    
+    "TWITTER_API_SECRET": "",
     "TWITTER_ACCESS_TOKEN": "",
     "TWITTER_ACCESS_SECRET": ""
   }
@@ -23,8 +23,8 @@ class AppConfig:
   def init():
     # Load env config
     load_dotenv()
-    
-    AppConfig.set("TWITTER_API_KEY", os.getenv("TWITTER_API_KEY"))
-    AppConfig.set("TWITTER_API_SECRET", os.getenv("TWITTER_API_SECRET"))
-    AppConfig.set("TWITTER_ACCESS_TOKEN", os.getenv("TWITTER_ACCESS_TOKEN"))
-    AppConfig.set("TWITTER_ACCESS_SECRET", os.getenv("TWITTER_ACCESS_SECRET"))
+
+    AppConfig.set("TWITTER_API_KEY", os.getenv("TWITTER_API_KEY") or "")
+    AppConfig.set("TWITTER_API_SECRET", os.getenv("TWITTER_API_SECRET") or "")
+    AppConfig.set("TWITTER_ACCESS_TOKEN", os.getenv("TWITTER_ACCESS_TOKEN") or "")
+    AppConfig.set("TWITTER_ACCESS_SECRET", os.getenv("TWITTER_ACCESS_SECRET") or "")
