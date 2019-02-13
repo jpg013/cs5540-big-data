@@ -1,7 +1,5 @@
 import tweepy
-from file_handle import FileHandle, FileModes
 from config import AppConfig
-import os
 import math
 test = math.inf
 
@@ -73,7 +71,7 @@ class TwitterStream(TwitterAPI, tweepy.StreamListener):
     def start(self):
         if self.is_streaming is True:
             return
-        print(self.filters)
+
         self.is_streaming = True
         self.stream.filter(
             locations=self.filters["locations"], 
@@ -93,33 +91,3 @@ class TwitterStream(TwitterAPI, tweepy.StreamListener):
             print("we are receiving a 420 error")
             #returning False in on_data disconnects the stream
             return False
-
-class StatusStreamListener(tweepy.StreamListener):
-    """StatusStreamListener class that parses twitter stream statuses"""
-    
-    def __init__(
-        self, 
-        limit=math.inf,
-        # dirname=os.path.join(os.path.dirname(__file__), "input"),
-        # on_status
-    ):
-        # Call super init
-        super().__init__()
-        
-        """
-        self.hashtag_file = FileHandle(
-            file_path=os.path.join(dirname, 'hashtags.txt'),
-            mode=FileModes.APPEND
-        )
-
-        hashtags = tweet.parse_status_hashtags(status)
-        urls = tweet.parse_status_urls(status)
-
-        self.hashtag_file.write(hashtags+"\n") if hashtags is not None else None
-        self.url_file.write(urls+"\n") if urls is not None else None
-
-        self.url_file = FileHandle(
-            file_path=os.path.join(dirname, 'urls.txt'),
-            mode=FileModes.APPEND
-        )
-        """
