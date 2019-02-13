@@ -12,12 +12,12 @@ stream = TwitterStream()
 log_dir=os.path.join(os.path.dirname(__file__), "logs")
 
 hashtag_file = FileHandle(
-    file_path=os.path.join(log_dir, 'hashtags.txt'),
+    file_path=os.path.join(log_dir, 'hashtag_log'),
     mode=FileModes.APPEND
 )
 
 url_file = FileHandle(
-    file_path=os.path.join(log_dir, 'urls.txt'),
+    file_path=os.path.join(log_dir, 'url_log'),
     mode=FileModes.APPEND
 )
 
