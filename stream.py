@@ -7,20 +7,22 @@ import os
 # Init AppConfig
 AppConfig.init()
 
-stream = TwitterStream(limit=100)
+stream = TwitterStream(limit=100000)
 
-log_path=os.path.join(os.path.dirname(__file__), "logs", "stream-output.log")
+log_dir=os.path.join(os.path.dirname(__file__), "logs")
 
-log_file = FileHandle(log_path, mode=FileModes.APPEND)
+url_log = FileHandle(os.path.join(log_dir, "url.log"), mode=FileModes.APPEND)
+
+hashtag_log = FileHandle(os.path.join(log_dir, "hashtag.log"), mode=FileModes.APPEND)
 
 def on_status(status):
     data = tweet.extract_entities(status)
     
     if data["hashtags"]:
-        log_file.write(data["hashtags"] + "\n")    
+        hashtag_log.write(data["hashtags"] + "\n")    
 
     if data["urls"]:
-        log_file.write(data["urls"] + "\n")
+        url_log.write(data["urls"] + "\n")
 
 stream.add_listener(on_status)
 # Bounding box I drew for Kansas City using 

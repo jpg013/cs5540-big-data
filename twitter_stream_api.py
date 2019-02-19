@@ -1,6 +1,7 @@
 import tweepy
 from config import AppConfig
 import math
+from progress_bar import progress_bar
 test = math.inf
 
 class TwitterAPI():
@@ -40,12 +41,19 @@ class TwitterStream(TwitterAPI, tweepy.StreamListener):
             "locations": [],
             "track": []
         }
+        self.update_progress()
+
+    def update_progress(self):
+        progress_bar(iteration=self.chunks, total=self.limit, prefix = 'Progress:', suffix = 'Complete', length = 50)
 
     def on_status(self, chunk):
         self.chunks += 1
 
         # Publish the status to all listeners
         self.publish_status(chunk)
+
+        # Update the progress bar
+        self.update_progress()
         
         # If we have exceeded the limit then return False to stop the stream
         if self.chunks >= self.limit:
