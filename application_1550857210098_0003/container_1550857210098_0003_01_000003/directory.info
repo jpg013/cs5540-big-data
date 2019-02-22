@@ -1,0 +1,28 @@
+ls -l:
+total 40
+-rw-r--r--  1 justin.graber  wheel   129 Feb 22 12:06 container_tokens
+-rwx------  1 justin.graber  wheel   768 Feb 22 12:06 default_container_executor.sh
+-rwx------  1 justin.graber  wheel   706 Feb 22 12:06 default_container_executor_session.sh
+lrwxr-xr-x  1 justin.graber  wheel   123 Feb 22 12:06 job.jar -> /tmp/hadoop-justin.graber/nm-local-dir/usercache/justin.graber/appcache/application_1550857210098_0003/filecache/11/job.jar
+lrwxr-xr-x  1 justin.graber  wheel   123 Feb 22 12:06 job.xml -> /tmp/hadoop-justin.graber/nm-local-dir/usercache/justin.graber/appcache/application_1550857210098_0003/filecache/13/job.xml
+-rwx------  1 justin.graber  wheel  5756 Feb 22 12:06 launch_container.sh
+lrwxr-xr-x  1 justin.graber  wheel    85 Feb 22 12:06 mapper.py -> /tmp/hadoop-justin.graber/nm-local-dir/usercache/justin.graber/filecache/12/mapper.py
+lrwxr-xr-x  1 justin.graber  wheel    86 Feb 22 12:06 reducer.py -> /tmp/hadoop-justin.graber/nm-local-dir/usercache/justin.graber/filecache/13/reducer.py
+drwx--x---  2 justin.graber  wheel    64 Feb 22 12:06 tmp
+find -L . -maxdepth 5 -ls:
+1991323        0 drwx--x---   15 justin.graber    wheel                 480 Feb 22 12:06 .
+1991339       16 -rwx------    1 justin.graber    wheel                5756 Feb 22 12:06 ./launch_container.sh
+1991344        8 -rwx------    1 justin.graber    wheel                 706 Feb 22 12:06 ./default_container_executor_session.sh
+1991242        8 -r-x------    1 justin.graber    wheel                 322 Feb 22 12:05 ./mapper.py
+1991335        8 -rw-r--r--    1 justin.graber    wheel                  12 Feb 22 12:06 ./.container_tokens.crc
+1991332        8 -rw-r--r--    1 justin.graber    wheel                 129 Feb 22 12:06 ./container_tokens
+1991246        8 -r-x------    1 justin.graber    wheel                 556 Feb 22 12:05 ./reducer.py
+1991342        8 -rw-r--r--    1 justin.graber    wheel                  56 Feb 22 12:06 ./.launch_container.sh.crc
+1991350        8 -rwx------    1 justin.graber    wheel                 768 Feb 22 12:06 ./default_container_executor.sh
+1991347        8 -rw-r--r--    1 justin.graber    wheel                  16 Feb 22 12:06 ./.default_container_executor_session.sh.crc
+1991262      368 -r-x------    1 justin.graber    wheel              185529 Feb 22 12:05 ./job.xml
+1991329        0 drwx--x---    2 justin.graber    wheel                  64 Feb 22 12:06 ./tmp
+1991352        8 -rw-r--r--    1 justin.graber    wheel                  16 Feb 22 12:06 ./.default_container_executor.sh.crc
+1991254        0 drwx------    3 justin.graber    wheel                  96 Feb 22 12:05 ./job.jar
+1991255      344 -r-x------    1 justin.graber    wheel              175467 Feb 22 12:05 ./job.jar/job.jar
+broken symlinks(find -L . -maxdepth 5 -type l -ls):
