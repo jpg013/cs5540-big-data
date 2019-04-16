@@ -5,7 +5,7 @@ import os
 import json
 from transform_status import transform_status
 
-file_name="tweets.json"
+file_name="statuses.json"
 
 # Init AppConfig
 AppConfig.init()
