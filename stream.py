@@ -27,6 +27,16 @@ KANSAS_CITY_GEO_BOX = [-95.1196, 38.7307, -93.9914, 39.3881] # Kansas City Metro
 
 #stream.add_location_filter(location_filter)
 stream.add_track_filter("trump")
+stream.add_track_filter("election 2019")
+stream.add_track_filter("mexico wall")
+stream.add_track_filter("immigration")
+stream.add_track_filter("h1b")
+stream.add_track_filter("obama")
+stream.add_track_filter("president")
+stream.add_track_filter("namo")
+stream.add_track_filter("america")
+stream.add_track_filter("great")
+stream.add_track_filter("India")
 
 stream.start()
 

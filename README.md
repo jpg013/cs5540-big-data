@@ -1,12 +1,28 @@
-# CS 5540 Big Data Project
+# PRINCIPLES OF BIG DATA MANAGEMENT
 
-Repository and source code for CS-5540 Principles of Big Data Management, Spring 2019. 
+## Team Members:
 
-### Description
-Part 1
-Weight - 8%
-Due Date - Feb 15, 2019
-Goal 
-Collect Tweets using Twitter’s Streaming APIs (e.g., 100K Tweets https://dev.twitter.com/docs/streaming-apis. 
-Extract all the hashtags and URLs in the tweets
-Run the WordCount example in Apache Hadoop and Apache Spark on the    extracted hashtags/URLs and collect the output and log files from       Hadoop. Add a README file.
+* Justin Graber
+* Poonam Kankariya
+* Vidyullatha Kaza
+
+## Project Phase 1 Overview:
+
+The initial phase of the project is focused on the collection of “Twitter” data. More than 100,000 tweets have been collected. The hashtags and URLs used in these tweets have been filtered through extraction using appropriate code. Along with the extraction, word count is performed identifying the number of times each of the hashtags and URLs are used within the tweets, highlighting the most and least popular data items. This creates a foundation for the data analysis to be done from the information collected and filtered. 
+
+## Key Components:
+
+* Number of tweets used
+  * 100,001
+* Keywords used 
+  * trump
+  * election 2019
+  * mexico wall
+  * immigration
+  * h1b
+  * obama
+  * president
+  * namo
+  * america
+  * great
+  * India

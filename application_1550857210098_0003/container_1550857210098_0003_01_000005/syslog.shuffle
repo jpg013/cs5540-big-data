@@ -1,0 +1,23 @@
+2019-02-22 12:06:12,813 INFO [main] org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl: MergerManager: memoryLimit=535088320, maxSingleShuffleLimit=133772080, mergeThreshold=353158304, ioSortFactor=10, memToMemMergeOutputsThreshold=10
+2019-02-22 12:06:12,815 INFO [EventFetcher for fetching Map Completion Events] org.apache.hadoop.mapreduce.task.reduce.EventFetcher: attempt_1550857210098_0003_r_000000_0 Thread started: EventFetcher for fetching Map Completion Events
+2019-02-22 12:06:12,819 INFO [EventFetcher for fetching Map Completion Events] org.apache.hadoop.mapreduce.task.reduce.EventFetcher: attempt_1550857210098_0003_r_000000_0: Got 3 new map-outputs
+2019-02-22 12:06:12,925 INFO [fetcher#2] org.apache.hadoop.mapreduce.task.reduce.Fetcher: fetcher#2 about to shuffle output of map attempt_1550857210098_0003_m_000001_0 decomp: 803327 len: 803331 to MEMORY
+2019-02-22 12:06:12,927 INFO [fetcher#2] org.apache.hadoop.mapreduce.task.reduce.InMemoryMapOutput: Read 803327 bytes from map-output for attempt_1550857210098_0003_m_000001_0
+2019-02-22 12:06:12,928 INFO [fetcher#2] org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl: closeInMemoryFile -> map-output of size: 803327, inMemoryMapOutputs.size() -> 1, commitMemory -> 0, usedMemory ->803327
+2019-02-22 12:06:12,930 INFO [fetcher#2] org.apache.hadoop.mapreduce.task.reduce.ShuffleSchedulerImpl: 10.48.45.112:13562 freed by fetcher#2 in 111ms
+2019-02-22 12:06:12,933 INFO [fetcher#2] org.apache.hadoop.mapreduce.task.reduce.Fetcher: fetcher#2 about to shuffle output of map attempt_1550857210098_0003_m_000002_0 decomp: 268779 len: 268783 to MEMORY
+2019-02-22 12:06:12,933 INFO [fetcher#2] org.apache.hadoop.mapreduce.task.reduce.InMemoryMapOutput: Read 268779 bytes from map-output for attempt_1550857210098_0003_m_000002_0
+2019-02-22 12:06:12,933 INFO [fetcher#2] org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl: closeInMemoryFile -> map-output of size: 268779, inMemoryMapOutputs.size() -> 2, commitMemory -> 803327, usedMemory ->1072106
+2019-02-22 12:06:12,933 INFO [fetcher#2] org.apache.hadoop.mapreduce.task.reduce.Fetcher: fetcher#2 about to shuffle output of map attempt_1550857210098_0003_m_000000_0 decomp: 1014687 len: 1014691 to MEMORY
+2019-02-22 12:06:12,934 INFO [fetcher#2] org.apache.hadoop.mapreduce.task.reduce.InMemoryMapOutput: Read 1014687 bytes from map-output for attempt_1550857210098_0003_m_000000_0
+2019-02-22 12:06:12,934 INFO [fetcher#2] org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl: closeInMemoryFile -> map-output of size: 1014687, inMemoryMapOutputs.size() -> 3, commitMemory -> 1072106, usedMemory ->2086793
+2019-02-22 12:06:12,934 INFO [fetcher#2] org.apache.hadoop.mapreduce.task.reduce.ShuffleSchedulerImpl: 10.48.45.112:13562 freed by fetcher#2 in 4ms
+2019-02-22 12:06:12,935 INFO [EventFetcher for fetching Map Completion Events] org.apache.hadoop.mapreduce.task.reduce.EventFetcher: EventFetcher is interrupted.. Returning
+2019-02-22 12:06:12,939 INFO [main] org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl: finalMerge called with 3 in-memory map-outputs and 0 on-disk map-outputs
+2019-02-22 12:06:12,943 INFO [main] org.apache.hadoop.mapred.Merger: Merging 3 sorted segments
+2019-02-22 12:06:12,944 INFO [main] org.apache.hadoop.mapred.Merger: Down to the last merge-pass, with 3 segments left of total size: 2086600 bytes
+2019-02-22 12:06:13,005 INFO [main] org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl: Merged 3 segments, 2086793 bytes to disk to satisfy reduce memory limit
+2019-02-22 12:06:13,006 INFO [main] org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl: Merging 1 files, 2086793 bytes from disk
+2019-02-22 12:06:13,006 INFO [main] org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl: Merging 0 segments, 0 bytes from memory into reduce
+2019-02-22 12:06:13,006 INFO [main] org.apache.hadoop.mapred.Merger: Merging 1 sorted segments
+2019-02-22 12:06:13,010 INFO [main] org.apache.hadoop.mapred.Merger: Down to the last merge-pass, with 1 segments left of total size: 2086781 bytes
