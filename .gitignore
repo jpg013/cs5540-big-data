@@ -19,3 +19,6 @@ logs
 
 # pyc
 *.pyc
+
+#DS STORE
+.DS_Store
