@@ -95,6 +95,7 @@ class TwitterStream(TwitterAPI, tweepy.StreamListener):
         self.is_streaming = False
 
     def on_error(self, status_code):
+        print(status_code)
         if status_code == 420:
             print("we are receiving a 420 error")
             #returning False in on_data disconnects the stream
